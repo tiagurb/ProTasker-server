@@ -4,11 +4,11 @@ const taskSchema = new Schema(
     {
       title: {
         type: String,
-        // required: true,
+        required: true,
       },
       description: {
         type: String,
-        // required: true,
+        required: true,
       },
       steps: [{ type: String }],
       image: {
@@ -20,7 +20,7 @@ const taskSchema = new Schema(
       },
       deadline: {
         type: Date,
-        // required: true,
+        required: true,
       },
       creator: {
         type: { type: Schema.Types.ObjectId, ref: "User"},
