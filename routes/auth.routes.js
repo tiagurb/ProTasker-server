@@ -8,14 +8,14 @@ const router = express.Router();
 
 router.post("/signup", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
 
-    if (!email || !password) {
+    if (!email || !password || !username) {
       res.status(200).json({ message: "Missing fields" });
       return;
     }
 
-    const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({ email , username });
     if (foundUser) {
       res.status(200).json({ message: "User already exist" });
       return;

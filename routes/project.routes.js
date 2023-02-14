@@ -20,7 +20,6 @@ router.get("/project", async (req, res) => {
 router.post("/project", async (req, res) => {
   try {
     //console.log("user id", req.payload._id);
-    const userID = req.payload._id;
     const { title } = req.body;
     if (!title ) {
       res.status(400).json({ message: "missing fields" });
@@ -59,12 +58,11 @@ router.get("/project/:projectId", async (req, res) => {
 //PUT PATCH
 router.put("/project/:projectId", async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title } = req.body;
     const response = await Project.findByIdAndUpdate(
       req.params.projectId,
       {
-        title,
-        description,
+        title
       },
       { new: true }
     );

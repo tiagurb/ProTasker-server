@@ -5,18 +5,18 @@ const userSchema = new Schema(
   {
     email: {
       type: String,
-      required: [true, 'Email is required.'],
+      // required: [true, 'Email is required.'],
       unique: true,
       lowercase: true,
       trim: true
     },
     password: {
       type: String,
-      required: [true, 'Password is required.']
+      // required: [true, 'Password is required.']
     },
     username: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
       trim: true,
     },
@@ -24,6 +24,7 @@ const userSchema = new Schema(
       type: String,
       // default:
     },
+    projets: [{ type: Schema.Types.ObjectId, ref: "Project" }],
     tasks: [{ type: Schema.Types.ObjectId, ref:"Task"}],
     
   },
