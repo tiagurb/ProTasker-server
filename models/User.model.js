@@ -23,7 +23,9 @@ const userSchema = new Schema(
     profilePicture: {
       type: String,
       // default:
-    }
+    },
+    tasks: [{ type: Schema.Types.ObjectId, ref:"Task"}],
+    
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
