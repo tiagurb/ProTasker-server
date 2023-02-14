@@ -73,14 +73,14 @@ router.put("/project/:projectId", async (req, res) => {
 });
 
 //POST create tasks
-router.post("/task", async (req, res) => {
+router.post("/task/:projectId", async (req, res) => {
   try {
     const { title, description, deadline, owner } = req.body;
     //1. Create the task
     const response = await Task.create({ title, description, deadline, owner });
     //2. Update the project by pushing the task id to its task array
     const projectResponse = await Project.findByIdAndUpdate(
-      project,
+      req.params.projectId,
       {
         $push: { tasks: response._id },
       },
