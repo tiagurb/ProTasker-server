@@ -3,7 +3,7 @@ const { json, response } = require("express");
 const Project = require("../models/Project.model");
 const Task = require("../models/Task.model");
 const fileUpload = require("../config/cloudinary");
-const { isAuthenticated } = require ("../middlewares/jwt.middleware")
+// const { isAuthenticated } = require ("../middlewares/jwt.middleware")
 
 
 //GET - get all projects

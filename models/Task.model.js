@@ -10,13 +10,12 @@ const taskSchema = new Schema(
         type: String,
         // required: true,
       },
-      steps: {
-        type: [String],
-      },
+      steps: [{ type: String }],
       image: {
         type: String,
       },
       creation: {
+        type: Date,
         default: Date.now,
       },
       deadline: {
@@ -26,10 +25,7 @@ const taskSchema = new Schema(
       creator: {
         type: { type: Schema.Types.ObjectId, ref: "User"},
       },
-      owner: {
-        type: [{ type: Schema.Types.ObjectId, ref: "User" }],
-        // required: true,
-      },
+      owner: [{ type: Schema.Types.ObjectId, ref: "User" }],
 
     },
     {
