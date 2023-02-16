@@ -5,11 +5,10 @@ const Task = require("../models/Task.model");
 const fileUpload = require("../config/cloudinary");
 // const { isAuthenticated } = require ("../middlewares/jwt.middleware")
 
-
 //GET - get all projects
 router.get("/project", async (req, res) => {
   try {
-    const response = await Project.find();
+    const response = await Project.find().populate("tasks");
     res.status(200).json(response);
   } catch (e) {
     res.status(500).json({ message: e });
@@ -21,7 +20,7 @@ router.post("/project", async (req, res) => {
   try {
     //console.log("user id", req.payload._id);
     const { title } = req.body;
-    if (!title ) {
+    if (!title) {
       res.status(400).json({ message: "missing fields" });
       return;
     }
@@ -48,7 +47,9 @@ router.delete("/project/:projectId", async (req, res) => {
 
 router.get("/project/:projectId", async (req, res) => {
   try {
-    const response = await Project.findById(req.params.projectId);
+    const response = await Project.findById(req.params.projectId).populate(
+      "tasks"
+    );
     res.status(200).json(response);
   } catch (e) {
     res.status(500).json({ message: e });
@@ -62,7 +63,7 @@ router.put("/project/:projectId", async (req, res) => {
     const response = await Project.findByIdAndUpdate(
       req.params.projectId,
       {
-        title
+        title,
       },
       { new: true }
     );
@@ -95,9 +96,11 @@ router.post("/task/:projectId", async (req, res) => {
 //Upload
 router.post("/upload", fileUpload.single("filename"), async (req, res) => {
   try {
-    res.status(200).json({ fileUrl: req.file.path});
+    res.status(200).json({ fileUrl: req.file.path });
   } catch (e) {
-    res.status(500).json({ message: "An error occured while returning the image path" });
+    res
+      .status(500)
+      .json({ message: "An error occured while returning the image path" });
   }
 });
 
