@@ -74,7 +74,7 @@ router.put("/project/:projectId", async (req, res) => {
 });
 
 //POST create tasks
-router.post("/task/:projectId", async (req, res) => {
+router.post("/tasks/create/:projectId", async (req, res) => {
   try {
     const { title, description, deadline, owner } = req.body;
     //1. Create the task
