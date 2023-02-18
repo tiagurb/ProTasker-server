@@ -18,7 +18,7 @@ router.get("/tasks", async (req, res) => {
 
 router.get("/tasks/:taskId", async (req, res) => {
     try {
-      const response = await Task.findById(req.params.projectId);
+      const response = await Task.findById(req.params.taskId);
       res.status(200).json(response);
     } catch (e) {
       res.status(500).json({ message: e });
