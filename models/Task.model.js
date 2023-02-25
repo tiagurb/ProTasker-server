@@ -13,6 +13,7 @@ const taskSchema = new Schema(
       steps: [{ type: String }],
       image: {
         type: String,
+        default: "https://res.cloudinary.com/dq8v89bym/image/upload/v1677322913/default-placeholder_ohn8cv.png";
       },
       creation: {
         type: Date,
@@ -26,6 +27,10 @@ const taskSchema = new Schema(
         type: { type: Schema.Types.ObjectId, ref: "User"},
       },
       users: [{ type: String }],
+      status: {
+        type: String,
+        default: "to do",
+      },
 
     },
     {
