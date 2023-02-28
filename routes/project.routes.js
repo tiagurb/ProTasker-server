@@ -93,6 +93,18 @@ router.post("/tasks/create/:projectId", async (req, res) => {
   }
 });
 
+//DELETE - delete a task
+router.delete("/tasks/:taskId", async (req, res) => {
+  try {
+    await Task.findByIdAndDelete(req.params.taskId);
+    res
+      .status(200)
+      .json({ message: `Task with ID ${req.params.taskId} was deleted` });
+  } catch (e) {
+    res.status(500).json({ message: e });
+  }
+});
+
 //Upload
 router.post("/upload", fileUpload.single("filename"), async (req, res) => {
   try {
