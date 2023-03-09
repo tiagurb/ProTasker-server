@@ -15,7 +15,7 @@ router.get("/tasks", async (req, res) => {
 });
 
 //PUT PATCH
-router.patch("/tasks/update/:taskId", async (req, res) => {
+router.put("/tasks/update/:taskId", async (req, res) => {
   try {
     const { title, description, image, deadline } = req.body;
     const response = await Task.findByIdAndUpdate(
@@ -25,6 +25,7 @@ router.patch("/tasks/update/:taskId", async (req, res) => {
       },
       { new: true }
     );
+    console.log('response', response)
     res.status(200).json(response);
   } catch (e) {
     res.status(500).json({ message: e });
