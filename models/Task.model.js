@@ -22,10 +22,6 @@ const taskSchema = new Schema(
         type: Date,
         required: true,
       },
-      creator: {
-        type: { type: Schema.Types.ObjectId, ref: "User"},
-      },
-      users: [{ type: String }],
       status: {
         type: String,
         default: "to do",

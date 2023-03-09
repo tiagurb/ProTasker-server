@@ -76,9 +76,9 @@ router.put("/project/:projectId", async (req, res) => {
 //POST create tasks
 router.post("/tasks/create/:projectId", async (req, res) => {
   try {
-    const { title, description, deadline, owner } = req.body;
+    const { title, description, deadline, image } = req.body;
     //1. Create the task
-    const response = await Task.create({ title, description, deadline, owner });
+    const response = await Task.create({ title, description, deadline, image });
     //2. Update the project by pushing the task id to its task array
     const projectResponse = await Project.findByIdAndUpdate(
       req.params.projectId,
@@ -90,6 +90,15 @@ router.post("/tasks/create/:projectId", async (req, res) => {
     res.status(200).json(projectResponse);
   } catch (e) {
     res.status(500).json({ message: e });
+  }
+});
+
+//Upload
+router.post("/upload", fileUpload.single("filename"), async (req, res) => {
+  try {
+    res.status(200).json({ fileUrl: req.file.path});
+  } catch (e) {
+    res.status(500).json({ message: "An error occured while returning the image path" });
   }
 });
 
