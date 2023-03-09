@@ -19,12 +19,12 @@ router.get("/project", async (req, res) => {
 router.post("/project", async (req, res) => {
   try {
     //console.log("user id", req.payload._id);
-    const { title } = req.body;
+    const { title, description, image } = req.body;
     if (!title) {
       res.status(400).json({ message: "missing fields" });
       return;
     }
-    const response = await Project.create({ title });
+    const response = await Project.create({ title,  description, image });
     res.status(200).json(response);
   } catch (e) {
     res.status(500).json({ message: e });
@@ -76,9 +76,9 @@ router.put("/project/:projectId", async (req, res) => {
 //POST create tasks
 router.post("/tasks/create/:projectId", async (req, res) => {
   try {
-    const { title, description, deadline, image } = req.body;
+    const { title, description, deadline } = req.body;
     //1. Create the task
-    const response = await Task.create({ title, description, deadline, image });
+    const response = await Task.create({ title, description, deadline });
     //2. Update the project by pushing the task id to its task array
     const projectResponse = await Project.findByIdAndUpdate(
       req.params.projectId,
@@ -90,15 +90,6 @@ router.post("/tasks/create/:projectId", async (req, res) => {
     res.status(200).json(projectResponse);
   } catch (e) {
     res.status(500).json({ message: e });
-  }
-});
-
-//Upload
-router.post("/upload", fileUpload.single("filename"), async (req, res) => {
-  try {
-    res.status(200).json({ fileUrl: req.file.path});
-  } catch (e) {
-    res.status(500).json({ message: "An error occured while returning the image path" });
   }
 });
 
